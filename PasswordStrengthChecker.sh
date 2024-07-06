@@ -1,5 +1,4 @@
 #!/bin/bash
-
 echo "-------------------------"
 echo "Password Strength Checker"
 echo -e "-------------------------\n"
@@ -21,36 +20,35 @@ fi
 
 # Checks for uppercase and lowercase letters using regex patterns [A-Z] and [a-z]
 if [[ $password =~ [A-Z] ]]; then
-    (( score++ ))
+    (( score ++ ))
     containsUppercase=true
 fi
 
 if [[ $password =~ [a-z] ]]; then
-    (( score++ ))
+    (( score ++ ))
     containsLowercase=true
 fi
 
 clear
 
 echo "Your password: $password"
-
 # Gives value of either weak, moderate, or strong
-if [[ $score -eq 0 ]]; then
+if [[ $score < 2 ]]; then
     echo "Password strength: Weak"
-elif [[ $score -eq 1 ]]; then
-    echo "Password strength: Moderate"
 elif [[ $score -eq 2 ]]; then
+    echo "Password strength: Moderate"
+elif [[ $score -eq 3 ]]; then
     echo "Password strength: Strong"
 fi
 
 # Password suggestions will only display if you are missing certain requirements for a secure password.
-if [[ $score < 1 ]]; then
+if [[ $score < 3 ]]; then
     echo -e "\nPassword Suggestions"
     echo -e "Include the following:\n"
-
     if ! $containsNumbers; then
         echo "At least 1 number."
     fi
+
     if ! $containsUppercase; then
         echo "At least 1 uppercase letter."
     fi
