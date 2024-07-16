@@ -13,7 +13,11 @@ containsSymbols=false
 containsUppercase=false
 containsLowercase=false
 
-read -r -p "Please enter a password: " password
+read -r -p "Please enter a password: " input
+
+# If the input has a space, everything from the space onwards
+# is omitted from the password strength checker.
+password=$(echo "$input" | cut -d' ' -f1)
 
 # Variable for password length
 length=${#password}
