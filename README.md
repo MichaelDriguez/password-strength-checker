@@ -3,6 +3,7 @@
 ## About
 
 This program checks the strength of your password, as well as provide suggestions on how to improve it. 
+[default-passwords.txt](https://github.com/danielmiessler/SecLists/blob/master/Passwords/Default-Credentials/default-passwords.txt) comes from the SecLists Default Passwords text file.
 
 ## Features
 
