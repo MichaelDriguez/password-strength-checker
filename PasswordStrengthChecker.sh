@@ -4,10 +4,21 @@ echo "-------------------------"
 echo "Password Strength Checker"
 echo -e "-------------------------\n"
 
+FILE="default-passwords.txt"
+FILE_PATH="$(dirname "$0")/$FILE"
+
+# This portion checks if the entered password matches with a default password.
+if ! [ -f "$FILE_PATH" ]; then
+    echo "Error: '$FILE' was not found."
+    echo "Shutting down program..."
+    exit 1
+fi
+
 # Score determines how secure the password is.
 score=0
 
 # Variables that provide password suggestions at the end of the program.
+isDefaultPassword=false
 containsNumbers=false
 containsSymbols=false
 containsUppercase=false
@@ -56,6 +67,15 @@ elif [[ $length -lt 12 ]]; then
     (( score -- ))
 fi
 
+# Checks if the user-submitted password matches any of the default passwords.
+while IFS= read -r line; do
+  if [ "$line" = "$password" ]; then
+    (( score = 0 ))
+    isDefaultPassword=true
+    break
+  fi
+done <"$FILE_PATH"
+
 clear
 
 echo "Your password: $password"
@@ -84,6 +104,12 @@ if [[ $score -lt 0 ]]; then
     echo "A password."
 elif [[ $score -lt 5 ]]; then
     echo -e "\nPassword Suggestions"
+
+    if $isDefaultPassword; then
+        echo -e "Do not use a default password."
+        exit 1
+    fi
+
     echo -e "Include the following:\n"
 
     if ! $containsNumbers; then
