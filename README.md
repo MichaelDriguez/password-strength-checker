@@ -20,7 +20,7 @@ This program checks the strength of your password, as well as provide suggestion
 
 This project is available under the [MIT License.](https://github.com/MichaelDriguez/password-strength-checker/blob/main/LICENSE)
 
-## Author
+## Authors
 
 This project was created by [Michael Rodriguez](https://github.com/MichaelDriguez) and [Johann Valenteros.](https://github.com/jvalenteros)
 
